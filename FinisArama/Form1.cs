@@ -79,6 +79,21 @@ namespace FinisArama
 			dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 			dataGridView1.Refresh();
 		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			//printDocument1.Print();
+			printPreviewDialog1.Document = printDocument1;
+			printPreviewDialog1.PrintPreviewControl.Zoom = 1;
+			printPreviewDialog1.ShowDialog();
+		}
+
+		private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+		{
+			Bitmap bm = new Bitmap(this.dataGridView1.Width, this.dataGridView1.Height);
+			dataGridView1.DrawToBitmap(bm, new Rectangle(0, 0, this.dataGridView1.Width, this.dataGridView1.Height));
+			e.Graphics.DrawImage(bm, 0, 0);
+		}
 	}
 
 	internal class Ayrinti
